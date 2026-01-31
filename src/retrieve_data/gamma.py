@@ -1,11 +1,12 @@
 # NOTE: This version for NFL Seas vs NE data retrieval from GAMMA API
 import requests
 import json
+import pandas as pd
 
 
-def save_raw_gamma_data(slug):
+def save_raw_gamma_data(mkt_event, slug):
     response = requests.get(
-        "https://gamma-api.polymarket.com/markets",
+        f"https://gamma-api.polymarket.com/{mkt_event}",
         params={"slug": slug},
         timeout=30
     )
@@ -15,7 +16,12 @@ def save_raw_gamma_data(slug):
 
 
 if __name__=="__main__":
-    webpage_url = "https://polymarket.com/sports/nfl/games/week/15/nfl-sea-ne-2026-02-08"
-    slug = webpage_url.split('/')[-1]
+    webpage_url = "https://polymarket.com/event/who-will-trump-nominate-as-fed-chair"
+    mkt_event = "events"
 
-    save_raw_gamma_data(slug)
+    # webpage_url = "https://polymarket.com/sports/nfl/games/week/15/nfl-sea-ne-2026-02-08"
+    # mkt_event = "markets"
+    
+    slug = webpage_url.split('/')[-1]
+    save_raw_gamma_data(mkt_event, slug)
+    
